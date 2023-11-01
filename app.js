@@ -120,9 +120,24 @@ function updatePrice() {
   finalCents = totalPriceInCents % 100;
 }
 
+let link='https://api.whatsapp.com/send?phone=7419199185&text=Order%20Details%20:'
+// "%0A"   (for new line)
+// "%20"   (for spaces)
+
+function updateWhatsappLink(){
+  for(let index=0; index<items.length;index++){
+
+    if(items[index].quantity !=0){
+      link += "%0A" + items[index].name + "%20" + items[index].quantity
+    }
+  }
+  link+="%0A" + "Total%20price%20" + finalDollars + "." + finalCents+"c"
+}
 
 cartButton.onclick = () => {
   updatePrice();
+  updateWhatsappLink()
+  window.open(link,"_blank")
 
 
   for (let index = 0; index < items.length; index++) {
